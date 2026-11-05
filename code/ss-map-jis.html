@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Japanese Institute of Sawtelle</title>
+    <script src="version.js"></script>
+    <script>document.write('<link rel="stylesheet" href="ss-locations.css?v=' + SS_VERSION + '">');</script>
+    <style>
+        /* ── Start page layout ───────────────────────────────────────────── */
+        #start-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            height: 100%;
+            height: -webkit-fill-available;
+            box-sizing: border-box;
+            padding: 0;
+        }
+
+        /* ── Height follows the *visible* screen (JS sets --app-h; dvh is the
+              CSS fallback) so the bottom of the map is never hidden behind
+              the browser's address bar on phones ─────────────────────────── */
+        html, body { height: var(--app-h, 100dvh); }
+        #start-wrapper { height: var(--app-h, 100dvh); }
+
+        /* ── Map image fills top portion ─────────────────────────────────── */
+        #map-container {
+            width: 100%;
+            flex: 1 1 0%;
+            min-height: 0;
+            overflow: hidden;
+            position: relative;
+            touch-action: none; /* we handle pinch/pan ourselves */
+        }
+
+        #map-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center center;
+            display: block;
+            -webkit-user-drag: none;
+            -webkit-user-select: none;
+            user-select: none;
+            transform-origin: 0 0;
+            will-change: transform;
+        }
+
+        /* ── Info bar at the bottom ──────────────────────────────────────── */
+        #info-bar {
+            width: 100%;
+            background: #111;
+            border-top: 3px solid #f5c518;
+            box-sizing: border-box;
+            padding: 18px 20px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        #info-bar p {
+            margin: 0;
+            color: #fff;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        /* ── Start button (matches .nav-button style) ────────────────────── */
+        #start-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5c518;
+            color: #111;
+            border: 3px solid #111;
+            border-radius: 8px;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 10px 28px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0 #111;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.08s, box-shadow 0.08s;
+        }
+
+        /* ── Smaller phones: slimmer info bar = more room for the map ───── */
+        @media (max-height: 700px), (max-width: 360px) {
+            #info-bar { padding: 8px 12px; gap: 6px; border-top-width: 2px; }
+            #info-bar p { font-size: 0.85rem; line-height: 1.3; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="start-wrapper">
+
+    <div id="map-container">
+        <img src="maps/ss-map-jis.png" alt="Map showing Japanese Institute of Sawtelle location">
+    </div>
+
+    <div id="info-bar">
+        <p id="map-info-text"></p>
+    </div>
+
+</div>
+
+<script>
+    fetch('ss-map-jis.json')
+        .then(function (r) { return r.json(); })
+        .then(function (lines) {
+            var p = document.getElementById('map-info-text');
+            p.innerHTML = lines.join('<br>');
+        })
+        .catch(function (err) {
+            console.error('Could not load JSON:', err);
+            document.getElementById('map-info-text').textContent =
+                'Go meet Sachi at the Japanese Institute of Sawtelle located at 2110 Corinth Ave.';
+        });
+</script>
+
+<script>
+    /* ── Pinch-zoom, drag-pan and double-tap zoom for the map image ─────── */
+    (function () {
+        var box = document.getElementById('map-container');
+        var img = box.querySelector('img');
+        var MIN = 1, MAX = 8;
+        var scale = 1, tx = 0, ty = 0;
+        var pts = {};                 // active pointers
+        var startDist = 0, startScale = 1, startMid = null, startTx = 0, startTy = 0;
+        var lastTap = 0;
+
+        function clamp() {
+            var w = box.clientWidth, h = box.clientHeight;
+            scale = Math.min(MAX, Math.max(MIN, scale));
+            // keep the image covering the box (no empty space when zoomed)
+            tx = Math.min(0, Math.max(w - w * scale, tx));
+            ty = Math.min(0, Math.max(h - h * scale, ty));
+            if (scale === 1) { tx = 0; ty = 0; }
+        }
+        function apply() {
+            clamp();
+            img.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+        }
+        function boxPoint(e) {
+            var r = box.getBoundingClientRect();
+            return { x: e.clientX - r.left, y: e.clientY - r.top };
+        }
+        function zoomAt(pt, newScale) {
+            newScale = Math.min(MAX, Math.max(MIN, newScale));
+            tx = pt.x - (pt.x - tx) * (newScale / scale);
+            ty = pt.y - (pt.y - ty) * (newScale / scale);
+            scale = newScale;
+        }
+        function ptrList() { return Object.keys(pts).map(function (k) { return pts[k]; }); }
+        function beginGesture() {
+            var l = ptrList();
+            if (l.length === 2) {
+                startDist = Math.hypot(l[0].x - l[1].x, l[0].y - l[1].y);
+                startMid = { x: (l[0].x + l[1].x) / 2, y: (l[0].y + l[1].y) / 2 };
+            } else if (l.length === 1) {
+                startMid = { x: l[0].x, y: l[0].y };
+            }
+            startScale = scale; startTx = tx; startTy = ty;
+        }
+
+        box.addEventListener('pointerdown', function (e) {
+            box.setPointerCapture(e.pointerId);
+            pts[e.pointerId] = boxPoint(e);
+            beginGesture();
+        });
+        box.addEventListener('pointermove', function (e) {
+            if (!pts[e.pointerId]) return;
+            pts[e.pointerId] = boxPoint(e);
+            var l = ptrList();
+            if (l.length >= 2) {
+                var dist = Math.hypot(l[0].x - l[1].x, l[0].y - l[1].y);
+                var mid = { x: (l[0].x + l[1].x) / 2, y: (l[0].y + l[1].y) / 2 };
+                scale = startScale; tx = startTx; ty = startTy;
+                zoomAt(startMid, startScale * (dist / startDist));
+                tx += mid.x - startMid.x;
+                ty += mid.y - startMid.y;
+                apply();
+            } else if (l.length === 1 && scale > 1) {
+                tx = startTx + (l[0].x - startMid.x);
+                ty = startTy + (l[0].y - startMid.y);
+                apply();
+            }
+        });
+        function end(e) {
+            if (!pts[e.pointerId]) return;
+            var wasSingle = ptrList().length === 1;
+            var moved = wasSingle && Math.hypot(pts[e.pointerId].x - startMid.x, pts[e.pointerId].y - startMid.y) > 10;
+            delete pts[e.pointerId];
+            if (e.type === 'pointerup' && wasSingle && !moved) {   // double-tap detection
+                var now = Date.now();
+                if (now - lastTap < 300) {
+                    if (scale > 1) { scale = 1; tx = 0; ty = 0; }
+                    else { zoomAt(boxPoint(e), 3); }
+                    apply();
+                    lastTap = 0;
+                } else { lastTap = now; }
+            }
+            beginGesture();
+        }
+        box.addEventListener('pointerup', end);
+        box.addEventListener('pointercancel', end);
+
+        // Mouse-wheel / trackpad zoom for desktop
+        box.addEventListener('wheel', function (e) {
+            e.preventDefault();
+            zoomAt(boxPoint(e), scale * (e.deltaY < 0 ? 1.15 : 1 / 1.15));
+            apply();
+        }, { passive: false });
+
+        function setAppHeight() {
+            document.documentElement.style.setProperty('--app-h', window.innerHeight + 'px');
+            apply();
+        }
+        window.addEventListener('resize', setAppHeight);
+        window.addEventListener('orientationchange', setAppHeight);
+        setAppHeight();
+    })();
+</script>
+
+</body>
+</html>

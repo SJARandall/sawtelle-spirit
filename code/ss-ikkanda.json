@@ -1,0 +1,125 @@
+{
+  "endButton": "Give SHIKATAGANAI Power Token to Sawtelle Spirit",
+  "dialogues": [
+		{
+		"image": "screens/ikkanda-outdoor-mouth-closed.webp",
+		"speaker": "player",
+		"text": "YOU: What is this place?"
+		},
+		{
+		"image": "screens/ikkanda-outdoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "SACHI: This is Ikkanda Automotive Service. My dad sometimes comes here for help."
+		},
+		{
+		"image": "screens/ikkanda-outdoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Let's head inside."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "TOM IKKANDA: Hi Sachi, good to see you again. What's going on today?"
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Hi Mr. Ikkanda! My dad's car is broken. He told me to ask you if you could take a look."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "I think the brakes are worn down and he probably needs new tires."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Well, I'm afraid it's worse than that. The transmission is shot."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "He won't be able to drive his car again."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Oh no! What will my dad think?"
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "He'll need to accept it, even if it is painful."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Have you heard of SHIKATAGANAI? It means Acceptance of your situation."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Sometimes, no matter how much we want to change something, we just can't."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "You mean, like learning to let go?"
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": " Exactly. During the war, many Japanese American families had to learn to let go."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Our communities were uprooted, our businesses closed."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Then, I ended up working in Reno, Nevada for the military."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "I accepted my fate and tried to make the best of life during the war."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Sounds like you accepted what happened to you during the war."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text":"Yes, acceptance gave me the strength to keep on going."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Not giving up, but finding peace with what we cannot change."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "That is the lesson of SHIKATAGANAI."
+		},
+		{
+		"image": "screens/ikkanda-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text":"Thank you, Mr. Ikkanda. That's a powerful lesson."
+		},
+		{
+		"image": "screens/ikkanda-indoor-token.webp",
+		"speaker": "owner",
+		"text": "Please take this token."
+		},
+		{
+		"image": "screens/ikkanda-indoor-token.webp",
+		"speaker": "owner",
+		"text": "SHIKATGANAI (Acceptance) can help you through difficult times."
+		}
+	]
+}

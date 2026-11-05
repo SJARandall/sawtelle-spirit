@@ -1,0 +1,75 @@
+{
+  "endButton": "Give GISEI Power Token to Sawtelle Spirit",
+  "dialogues": [
+		{
+		"image": "screens/tensho-outdoor-mouth-closed.webp",
+		"speaker": "player",
+		"text": "YOU: This must be the Tensho Drug Store, right Sachi?."
+		},
+		{
+		"image": "screens/tensho-outdoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "SACHI: Yes, everyone in the neighborhood comes here for medicine and news."
+		},
+		{
+		"image": "screens/tensho-outdoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Let's go inside."
+		},
+		{
+		"image": "screens/tensho-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "JOHN TOSHIYUKI: Sachi, good to see you!"
+		},
+		{
+		"image": "screens/tensho-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "I've got your family's medicine and your father's newspaper."
+		},
+		{
+		"image": "screens/tensho-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Thank you so much, Mr. Toshiyuki! You always go out of your way for us."
+		},
+		{
+		"image": "screens/tensho-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Mr. Toshiyuki, what is that token in your window?"
+		},
+		{
+		"image": "screens/tensho-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "That's the symbol for GISEI. It means sacrifice."
+		},
+		{
+		"image": "screens/tensho-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Sometimes it means giving up your time, comfort, or health so others can thrive."
+		},
+		{
+		"image": "screens/tensho-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "I work long hours, but it's worth it to help my family and the neighborhood."
+		},
+		{
+		"image": "screens/tensho-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "I can see how you sacrificed a lot for your daughter and the community."
+		},
+		{
+		"image": "screens/tensho-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Thank you for teaching us about GISEI!"
+		},
+		{
+		"image": "screens/tensho-indoor-token.webp",
+		"speaker": "owner",
+		"text": "Please take this token."
+		},
+		{
+		"image": "screens/tensho-indoor-token.webp",
+		"speaker": "owner",
+		"text": "May it remind you that GISEI (Sacrifice) helps to keep our community strong."
+		}
+	]
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sawtelle Spirit - Tensho Drug Store</title>
+    <script src="version.js"></script>
+    <script>document.write('<link rel="stylesheet" href="ss-locations.css?v=' + SS_VERSION + '">');</script>
+</head>
+<body>
+
+<div id="app-wrapper">
+
+    <!-- ── Comic panel ──────────────────────────────────────────────── -->
+    <div id="image-container">
+
+        <!-- ── Chapter title screen ─────────────────────────────────────
+             Shown once, at the very start of this location's story, on
+             top of the first panel. Text is filled in by JS from
+             SSI_CONFIG.chapterNumber / .locationName. Tap anywhere (or
+             hit Next) to dismiss — see ss-locations.js.
+        ────────────────────────────────────────────────────────────── -->
+        <div id="chapter-screen" class="chapter-screen">
+            <img src="ss-logo.png" alt="Sawtelle Spirit logo" class="chapter-logo">
+            <p id="chapter-number" class="chapter-number"></p>
+            <h1 id="chapter-location" class="chapter-location"></h1>
+            <p class="chapter-footer">
+                This chapter is part of the Sawtelle Spirit story. To start
+                the story from the beginning, please look for the QR code
+                with the SS cat logo in the center. QR code locations can
+                be found here:
+                <a href="https://sawtelleja.org/sawtelle-spirit/" target="_blank" rel="noopener">https://sawtelleja.org/sawtelle-spirit</a>.
+            </p>
+        </div>
+
+        <img id="fullscreen-image" src="" alt="Tensho Drug Store" draggable="false">
+
+        <!-- CSS speech bubbles — text injected by JS -->
+        <div id="bubble-player" class="dialogue-zone bubble-player">
+            <span class="dialogue-text"></span>
+        </div>
+        <div id="bubble-sachi" class="dialogue-zone bubble-sachi">
+            <span class="dialogue-text"></span>
+        </div>
+        <div id="bubble-owner" class="dialogue-zone bubble-owner">
+            <span class="dialogue-text"></span>
+        </div>
+
+        <!-- ── YouTube popup ──────────────────────────────────────────
+             No static <iframe> here. JS creates a fresh <iframe> element
+             inside the play-button click handler (a real user gesture).
+             Firefox only permits YouTube embeds when the iframe is created
+             during a user gesture — reusing a pre-existing iframe with a
+             src change causes Firefox to navigate the parent page instead.
+             The iframe is removed from the DOM entirely on close.
+        ────────────────────────────────────────────────────────────── -->
+        <div id="youtube-popup" class="youtube-popup"
+             role="dialog" aria-modal="true" aria-labelledby="youtube-title">
+            <h2 id="youtube-title" class="visually-hidden">Location Video</h2>
+            <button id="close-youtube" class="close-button" aria-label="Close video">&times;</button>
+            <div class="video-wrapper" id="video-wrapper">
+                <!-- iframe injected here by JS on play tap -->
+                <button id="youtube-play-btn" class="youtube-play-btn" aria-label="Play video">
+                    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="40" cy="40" r="38"
+                            fill="rgba(0,0,0,0.65)" stroke="#f5c518" stroke-width="3"/>
+                        <polygon points="30,22 62,40 30,58" fill="#f5c518"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+    </div><!-- /#image-container -->
+
+    <!-- ── Bottom nav bar: [←]  [↺]  [→] ────────────────────────── -->
+    <nav id="nav-bar">
+        <button id="prev-button" class="nav-button" aria-label="Previous">&#8592;</button>
+
+        <button id="restart-button" class="nav-button" aria-label="Restart from beginning">
+            <!-- Circular arrow (restart) icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                 fill="currentColor" aria-hidden="true">
+                <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+            </svg>
+        </button>
+
+        <button id="next-button" class="nav-button" aria-label="Next">&#8594;</button>
+    </nav>
+
+</div><!-- /#app-wrapper -->
+
+<!-- ── End-of-sequence popup ────────────────────────────────────── -->
+<div id="final-popup" class="popup"
+     role="dialog" aria-modal="true" aria-labelledby="final-title">
+    <div class="popup-content final-text-box">
+        <h2 id="final-title" class="visually-hidden">End of sequence</h2>
+        <img src="screens/token-gisei.png?v=3" alt="GISEI Power Token" class="token-image">
+        <a href="ss-token-gisei.html" id="end-button" class="token-button">Give GISEI Power Token to Sawtelle Spirit</a>
+    </div>
+</div>
+
+<script src="ss-tensho-config.js?v=1"></script>
+<script>document.write('<script src="ss-locations.js?v=' + SS_VERSION + '"><\/script>');</script>
+
+</body>
+</html>

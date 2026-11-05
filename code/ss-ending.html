@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sawtelle Spirit - Ending</title>
+    <script src="version.js"></script>
+    <script>document.write('<link rel="stylesheet" href="ss-locations.css?v=' + SS_VERSION + '">');</script>
+    <style>
+        /* ── Ending screens layout ────────────────────────────────────────
+           #ending-container plays the same role #image-container plays on
+           the location pages (fills the space above #nav-bar). Instead of
+           one photo + dialogue bubbles, it holds four full "screens" of
+           credits/closing content — only one .ending-screen is display:flex
+           (via .active) at a time. Navigation (prev/restart/next, tap,
+           swipe, arrow keys) is handled by the small script at the bottom
+           of this file rather than ss-locations.js, since that script
+           assumes the comic-panel/dialogue markup this page doesn't have.
+           ───────────────────────────────────────────────────────────── */
+        #ending-container {
+            position: relative;
+            flex: 1 1 0%;
+            min-height: 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .ending-screen {
+            position: absolute;
+            inset: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 32px 26px;
+            box-sizing: border-box;
+            text-align: center;
+            overflow-y: auto;
+            cursor: pointer;
+        }
+
+        .ending-screen.active {
+            display: flex;
+        }
+
+        /* Credits screen has more content than reliably fits one viewport —
+           top-align it (with breathing room) instead of centering, so a
+           centered-but-overflowing flex column can never clip its top. */
+        .ending-screen[data-screen="1"] {
+            justify-content: flex-start;
+            padding-top: 48px;
+        }
+
+        .ending-title {
+            margin: 8px 0 0;
+            color: #f5c518;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-size: clamp(2rem, 9vw, 2.6rem);
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .ending-heading {
+            margin: 0 0 4px;
+            color: #f5c518;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-size: clamp(1.3rem, 6vw, 1.6rem);
+            font-weight: 800;
+        }
+
+        .ending-text {
+            margin: 0;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-size: clamp(0.95rem, 4vw, 1.05rem);
+            line-height: 1.6;
+            max-width: 420px;
+        }
+
+        .ending-text.italic {
+            font-style: italic;
+        }
+
+        .ending-text a {
+            color: #f5c518;
+        }
+
+        .credits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 420px;
+        }
+
+        .credit-row {
+            margin: 0;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-size: clamp(0.85rem, 3.6vw, 0.95rem);
+            line-height: 1.5;
+        }
+
+        .credit-role {
+            color: #f5c518;
+            font-weight: 700;
+        }
+
+        .ending-logo-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 8px;
+        }
+
+        /* Square "sticker card" logo treatment — matches .chapter-logo
+           elsewhere in the app (ss-logo.png, logo-japantownproductions.png,
+           and logo-sja.jpg are all square art on a white background). */
+        .logo-square {
+            width: 110px;
+            max-width: 30vw;
+            height: auto;
+            border: 3px solid #111;
+            border-radius: 16px;
+            box-shadow: 4px 4px 0 #111;
+        }
+
+        /* Same card treatment, wider proportions for the Aratani CARE
+           banner logo (2500x1083 — much wider than tall). */
+        .logo-wide {
+            width: 230px;
+            max-width: 66vw;
+            height: auto;
+            border: 3px solid #111;
+            border-radius: 16px;
+            box-shadow: 4px 4px 0 #111;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app-wrapper">
+
+    <div id="ending-container">
+
+        <!-- ── Screen 1: Congratulations ───────────────────────────────── -->
+        <div class="ending-screen active" data-screen="0">
+            <img src="ss-logo.png" alt="Sawtelle Spirit logo" class="logo-square">
+            <h1 class="ending-title">Congratulations!</h1>
+            <p class="ending-text">
+                You have fully restored the power of Sawtelle Spirit, who
+                will now be able to keep Sawtelle Japantown alive as an
+                ethnic neighborhood.
+            </p>
+        </div>
+
+        <!-- ── Screen 2: Credits ───────────────────────────────────────── -->
+        <div class="ending-screen" data-screen="1">
+            <h2 class="ending-heading">Sawtelle Spirit Credits</h2>
+            <div class="credits-list">
+                <p class="credit-row"><span class="credit-role">Design and Programming:</span> Randall Fujimoto</p>
+                <p class="credit-row"><span class="credit-role">Lead Graphic Artist:</span> Zoe Iwanaka</p>
+                <p class="credit-row"><span class="credit-role">Storywriters:</span> Tess Ida &amp; Joseph Tsuboi</p>
+                <p class="credit-row"><span class="credit-role">3D Graphic Artist:</span> Kaylee Takata</p>
+                <p class="credit-row"><span class="credit-role">Community Liaison:</span> Walton Chiu</p>
+                <p class="credit-row"><span class="credit-role">Quality Assurance:</span> Keiko Delatorre and Cosmos Gakuin students</p>
+                <p class="credit-row"><span class="credit-role">Video Narration:</span> Tom Ikkanda, Tosh Ishioka, Randy Sakamoto, Ted Tanaka, Sandy Toshiyuki, Henry Yamaguchi, Jack Yamaguchi</p>
+                <p class="credit-row"><span class="credit-role">Special Thanks:</span> Nick Suda, Britney Winthrope, Peter Xu, Maggie Yoshioka</p>
+                <p class="credit-row"><span class="credit-role">Sawtelle Businesses and Organizations:</span> Japanese Institute of Sawtelle, Giant Robot, Tsujita LA, Noble Tea, Melo Melo</p>
+            </div>
+        </div>
+
+        <!-- ── Screen 3: Production credit + sponsor logos ─────────────── -->
+        <div class="ending-screen" data-screen="2">
+            <p class="ending-text">
+                Sawtelle Spirit is a production of Japantown Productions in
+                collaboration with the Sawtelle Japantown Association and
+                is co-sponsored by The George and Sakaye Aratani CARE Award
+                and UCLA's Asian American Studies Center.
+            </p>
+            <div class="ending-logo-row">
+                <img src="logo-japantownproductions.png" alt="Japantown Productions logo" class="logo-square">
+                <img src="logo-aratanicare.webp" alt="The George and Sakaye Aratani CARE Award / UCLA Asian American Studies Center logo" class="logo-wide">
+            </div>
+        </div>
+
+        <!-- ── Screen 4: Call to action ─────────────────────────────────── -->
+        <div class="ending-screen" data-screen="3">
+            <img src="ss-logo.png" alt="Sawtelle Spirit logo" class="logo-square">
+            <p class="ending-text">
+                If you are interested in continuing to help Sawtelle
+                Japantown, please join the Sawtelle Japantown Association at
+                <a href="https://sawtelleja.org" target="_blank" rel="noopener">https://sawtelleja.org</a>.
+            </p>
+            <p class="ending-text italic">
+                Please provide feedback or suggestions<br />for Sawtelle Spirit
+                here:<br />
+                <a href="https://sawtelleja.org/sawtelle-spirit-feedback" target="_blank" rel="noopener">https://sawtelleja.org/sawtelle-spirit-feedback</a>
+            </p>
+            <img src="logo-sja.jpg" alt="Sawtelle Japantown Association logo" class="logo-square">
+        </div>
+
+    </div><!-- /#ending-container -->
+
+    <!-- ── Bottom nav bar: [←]  [↺]  [→] ────────────────────────── -->
+    <nav id="nav-bar">
+        <button id="prev-button" class="nav-button" aria-label="Previous">&#8592;</button>
+
+        <button id="restart-button" class="nav-button" aria-label="Restart from beginning">
+            <!-- Circular arrow (restart) icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                 fill="currentColor" aria-hidden="true">
+                <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+            </svg>
+        </button>
+
+        <button id="next-button" class="nav-button" aria-label="Next">&#8594;</button>
+    </nav>
+
+</div><!-- /#app-wrapper -->
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const container      = document.getElementById('ending-container');
+    const screens         = Array.from(document.querySelectorAll('.ending-screen'));
+    const prevButton       = document.getElementById('prev-button');
+    const nextButton       = document.getElementById('next-button');
+    const restartButton    = document.getElementById('restart-button');
+
+    let currentIndex = 0;
+    let touchStartX  = null;
+
+    // Prev is hidden on the first screen, Next is hidden on the last —
+    // same convention as .nav-button[style*="visibility: hidden"] in
+    // ss-locations.css on every other page.
+    function showScreen(index) {
+        if (index < 0 || index >= screens.length) return;
+        currentIndex = index;
+        screens.forEach((s, i) => s.classList.toggle('active', i === index));
+        prevButton.style.visibility = index === 0 ? 'hidden' : 'visible';
+        nextButton.style.visibility = index === screens.length - 1 ? 'hidden' : 'visible';
+    }
+
+    function nextScreen() { if (currentIndex < screens.length - 1) showScreen(currentIndex + 1); }
+    function prevScreen() { if (currentIndex > 0) showScreen(currentIndex - 1); }
+
+    prevButton.addEventListener   ('click', e => { e.stopPropagation(); prevScreen(); });
+    nextButton.addEventListener   ('click', e => { e.stopPropagation(); nextScreen(); });
+    restartButton.addEventListener('click', e => { e.stopPropagation(); showScreen(0); });
+
+    // Tap anywhere on a screen (except a live link) to advance.
+    container.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        nextScreen();
+    });
+
+    // Touch swipe (left = next, right = prev)
+    container.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    container.addEventListener('touchend', e => {
+        if (touchStartX === null) return;
+        const diff = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 50) diff > 0 ? nextScreen() : prevScreen();
+        touchStartX = null;
+    }, { passive: true });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') nextScreen();
+        else if (e.key === 'ArrowLeft') prevScreen();
+    });
+
+    // ── Initialise ───────────────────────────────────────────────────────
+    showScreen(0);
+});
+</script>
+
+</body>
+</html>

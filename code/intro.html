@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sawtelle Spirit</title>
+    <script src="version.js"></script>
+    <script>document.write('<link rel="stylesheet" href="ss-locations.css?v=' + SS_VERSION + '">');</script>
+    <style>
+        /* ── Welcome screen layout ───────────────────────────────────────── */
+        #intro-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            height: 100%;
+            height: -webkit-fill-available;
+            box-sizing: border-box;
+            padding: 32px 28px;
+            gap: 22px;
+            text-align: center;
+            overflow-y: auto;
+        }
+
+        #intro-logo {
+            width: 100%;
+            max-width: 170px;
+            height: auto;
+            display: block;
+            border: 3px solid #111;
+            border-radius: 18px;
+            box-shadow: 4px 4px 0 #111;
+        }
+
+        #intro-title {
+            margin: 0;
+            color: #fff;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-size: clamp(1.8rem, 8vw, 2.4rem);
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        #intro-title .accent {
+            color: #f5c518;
+        }
+
+        #intro-text {
+            margin: 0;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-size: clamp(0.95rem, 4vw, 1.05rem);
+            line-height: 1.6;
+        }
+
+        #intro-start-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5c518;
+            color: #111;
+            border: 3px solid #111;
+            border-radius: 8px;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1.05rem;
+            font-weight: bold;
+            padding: 12px 34px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0 #111;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.08s, box-shadow 0.08s;
+        }
+
+        #intro-start-button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 #111;
+        }
+    </style>
+</head>
+<body>
+
+<div id="intro-wrapper">
+
+    <img id="intro-logo" src="ss-logo.png" alt="Sawtelle Spirit logo">
+
+    <h1 id="intro-title">Sawtelle <span class="accent">Spirit</span></h1>
+
+    <p id="intro-text">
+        Sawtelle Spirit is the story of Sawtelle Japantown's history.
+        In this story, you will help the Sawtelle Spirit keep this
+        history alive and ensure the future of Sawtelle Japantown as an
+        ethnic neighborhood.
+    </p>
+
+    <a href="start.html" id="intro-start-button">Begin the Story</a>
+
+</div>
+
+</body>
+</html>

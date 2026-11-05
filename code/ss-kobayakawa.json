@@ -1,0 +1,65 @@
+{
+  "endButton": "Give GANBARI Power Token to Sawtelle Spirit",
+  "dialogues": [
+		{
+		"image": "screens/kobayakawa-outdoor-mouth-closed.webp",
+		"speaker": "player",
+		"text": "YOU: This place looks important."
+		},
+		{
+		"image": "screens/kobayakawa-outdoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "SACHI: Yes, it is. After the war, many Japanese Americans returned here with nothing."
+		},
+		{
+		"image": "screens/kobayakawa-outdoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Mr. Riichi Ishioka opened this boarding house so they could start over."
+		},
+		{
+		"image": "screens/kobayakawa-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "TOSH ISHIOKA: Hi Sachi and Sachi's friend. I'm Tosh, the son of Riichi Ishioka."
+		},
+		{
+		"image": "screens/kobayakawa-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "We saw a token glowing in your home. What does it mean?"
+		},
+		{
+		"image": "screens/kobayakawa-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "That is GANBARI. It means persistence."
+		},
+		{
+		"image": "screens/kobayakawa-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "When we first came back from the war, people didn't want us here."
+		},
+		{
+		"image": "screens/kobayakawa-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Our house was even vandalized on the very first night."
+		},
+		{
+		"image": "screens/kobayakawa-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "But we refused to give up. We worked, we built, and we stayed."
+		},
+		{
+		"image": "screens/kobayakawa-indoor-mouth-open.webp",
+		"speaker": "player",
+		"text": "That must have taken so much courage."
+		},
+		{
+		"image": "screens/kobayakawa-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Yes, we had to GANBARI because persistence was the only way forward."
+		},
+		{
+		"image": "screens/kobayakawa-indoor-token.webp",
+		"speaker": "owner",
+		"text": "Please take this token as a reminder of GANBARI (Persistence)."
+		}
+	]
+}

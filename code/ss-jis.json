@@ -1,0 +1,90 @@
+{
+  "endButton": "Give ON Power Token to Sawtelle Spirit",
+  "dialogues": [
+		{
+		"image": "screens/jis-outdoor-mouth-closed.webp",
+		"speaker": "player",
+		"text": "YOU: What's this place?"
+		},
+		{
+		"image": "screens/jis-outdoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "SACHI: This is the Japanese Institute of Sawtelle, JIS for short."
+		},
+		{
+		"image": "screens/jis-outdoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "It's been part of our community since the 1920s. Let's go inside."
+		},
+		{
+		"image": "screens/jis-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "RANDY SAKAMOTO: Hi Sachi! Welcome. And hello to your friend, too."
+		},
+		{
+		"image": "screens/jis-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Hi Randy! My friend and I are exploring Sawtelle together."
+		},
+		{
+		"image": "screens/jis-indoor-mouth-closed.webp",
+		"speaker": "player",
+		"text": "Wow, this place feels important."
+		},
+		{
+		"image": "screens/jis-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Yes, my grandpa Gisuke Sakamoto founded JIS with just four students who took Japanese lessons in his home."
+		},
+		{
+		"image": "screens/jis-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "He wasn't rich, but he was always giving his money and time to the community."
+		},
+		{
+		"image": "screens/jis-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "And it grew into this?"
+		},
+		{
+		"image": "screens/jis-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Yes, it was a school and community hub."
+		},
+		{
+		"image": "screens/jis-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "After the war, the JIS became a hostel for returning families."
+		},
+		{
+		"image": "screens/jis-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "So it helped carry the community through hard times?"
+		},
+		{
+		"image": "screens/jis-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Exactly. For me, being here is about ON, or obligation."
+		},
+		{
+		"image": "screens/jis-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "I feel a sense of ON (Obligation) to my grandpa to help the community."
+		},
+		{
+		"image": "screens/jis-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "So ON means honoring what came before and passing it on."
+		},
+		{
+		"image": "screens/jis-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "Yes, you're quite right. We all have an obligation to the past."
+		},
+		{
+		"image": "screens/jis-indoor-token.webp",
+		"speaker": "owner",
+		"text": "Here, you've earned this ON (Obligation) token."
+		}
+	]
+}

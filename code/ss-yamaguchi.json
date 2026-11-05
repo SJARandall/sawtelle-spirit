@@ -1,0 +1,70 @@
+{
+  "endButton": "Give GAMAN Power Token to Sawtelle Spirit",
+  "dialogues": [
+		{
+		  "image": "screens/yamaguchi-outdoor-mouth-open.webp",
+		  "speaker": "sachi",
+		  "text": "SACHI: Hi! I'm Sachi. I am here to guide you."
+		},
+		{
+		  "image": "screens/yamaguchi-outdoor-mouth-closed.webp",
+		  "speaker": "player",
+		  "text": "YOU: Nice to meet you, Sachi! "
+		},
+		{
+		  "image": "screens/yamaguchi-outdoor-token-closed.webp",
+		  "speaker": "player",
+		  "text": "Look Sachi, something's glowing in that window!"
+		},
+		{
+		  "image": "screens/yamaguchi-outdoor-token-open.webp",
+		  "speaker": "sachi",
+		  "text": "It's Yamaguchi Store, the neighborhood's general store. Let's go inside."
+		},
+		{
+		  "image": "screens/yamaguchi-indoor-mouth-closed.webp",
+		  "speaker": "owner",
+		  "text": "HENRY YAMAGUCHI: Hi Sachi, what brings you here today?"
+		},
+		{
+		  "image": "screens/yamaguchi-indoor-mouth-open.webp",
+		  "speaker": "sachi",
+		  "text": "Hello Mr. Yamaguchi! What is that token in your window?"
+		},
+		{
+		  "image": "screens/yamaguchi-indoor-mouth-closed.webp",
+		  "speaker": "owner",
+		  "text": "That's Japanese for GAMAN. It means enduring life's hardships with patience."
+		},
+		{
+		  "image": "screens/yamaguchi-indoor-mouth-closed.webp",
+		  "speaker": "owner",
+		  "text": "During World War II, our family lost everything so we had to GAMAN."
+		},
+		{
+		  "image": "screens/yamaguchi-indoor-mouth-open.webp",
+		  "speaker": "sachi",
+		  "text": "That must have been so difficult…"
+		},
+		{
+		  "image": "screens/yamaguchi-indoor-mouth-closed.webp",
+		  "speaker": "owner",
+		  "text": "Yes it was difficult, but we had GAMAN, so we carried on."
+		},
+		{
+		  "image": "screens/yamaguchi-indoor-mouth-closed.webp",
+		  "speaker": "owner",
+		  "text": "My brother Jack especially had to endure so much when we came back to Sawtelle."
+		},
+		{
+		  "image": "screens/yamaguchi-indoor-mouth-open.webp",
+		  "speaker": "sachi",
+		  "text": "Oh, that's so sad. I can see how he had to have GAMAN to get through that time."
+		},
+		{
+		  "image": "screens/yamaguchi-indoor-token.webp",
+		  "speaker": "owner",
+		  "text": "Please take this token as a reminder of GAMAN."
+		}
+	]
+}

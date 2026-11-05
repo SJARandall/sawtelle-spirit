@@ -1,0 +1,548 @@
+/* =====================================================================
+   ss-locations.css  —  Shared styles for all SSI location pages
+   Speech bubbles are drawn entirely in CSS (no bubble art in images).
+   ===================================================================== */
+
+/* ── Reset & Fullscreen ─────────────────────────────────────────────── */
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    /* -webkit-fill-available prevents iOS Safari address-bar overlap */
+    height: -webkit-fill-available;
+    overflow: hidden;
+    /* Dark background fills the letterbox area on wide screens */
+    background-color: #1a1a1a;
+    font-family: sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Main Layout ────────────────────────────────────────────────────── */
+#app-wrapper {
+    display: flex;
+    flex-direction: column;
+    /* On mobile: fills the full screen width.
+       On tablets/laptops: caps at 480px so the portrait comic stays
+       readable. The dark body background shows as side letterboxes. */
+    width: 100%;
+    max-width: 480px;
+    /* Centers the panel on wide screens; body background shows as letterbox */
+    margin: 0 auto;
+    height: 100%;
+    height: -webkit-fill-available;
+}
+
+/* ── Image Container ────────────────────────────────────────────────── */
+#image-container {
+    position: relative;
+    /* flex: 1 1 0% + min-height: 0 prevents Safari flex-column collapse */
+    flex: 1 1 0%;
+    min-height: 0;
+    width: 100%;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#fullscreen-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    cursor: pointer;
+    /* Prevent iOS long-press image menu */
+    -webkit-user-drag: none;
+    pointer-events: none; /* clicks handled on image-container */
+}
+
+/* =====================================================================
+   Chapter Title Screen
+   ─────────────────────────────────────────────────────────────────────
+   Sits inside #image-container, covering the comic art, until the user
+   taps or presses Next. Driven by SSI_CONFIG.chapterNumber /
+   .locationName (see ss-locations.js) — pages that omit those keys
+   never show this screen.
+   ===================================================================== */
+.chapter-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 36px 28px 64px;
+    box-sizing: border-box;
+    background: #1a1a1a;
+    text-align: center;
+    cursor: pointer;
+}
+
+.chapter-screen.hidden {
+    display: none;
+}
+
+.chapter-logo {
+    width: 100%;
+    max-width: 130px;
+    height: auto;
+    border: 3px solid #111;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 #111;
+}
+
+.chapter-number {
+    margin: 4px 0 0;
+    color: #f5c518;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(0.95rem, 4.5vw, 1.15rem);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.chapter-location {
+    margin: 0;
+    color: #fff;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(1.4rem, 6.5vw, 1.9rem);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.chapter-footer {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 16px;
+    margin: 0;
+    color: #999;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.7rem;
+    line-height: 1.5;
+}
+
+.chapter-footer a {
+    color: #f5c518;
+}
+
+/* =====================================================================
+   CSS Speech Bubbles
+   ─────────────────────────────────────────────────────────────────────
+   Each .dialogue-zone IS the speech bubble — cream oval with a
+   directional tail drawn via ::before (dark border) and ::after (fill).
+
+   Bubble types (must match JSON "speaker" values):
+     .bubble-owner  → top of image,    tail → down-right  (NPC / store owner)
+     .bubble-sachi  → bottom of image, tail → down-left   (Sachi character)
+     .bubble-player → bottom of image, tail → down-left   (player / protagonist)
+
+   IMPORTANT: Bubble positions (top / left / width / height) are
+   calibrated for images WITHOUT pre-drawn bubbles. If your source
+   images still have bubble art, please supply updated artwork.
+   Fine-tune the percentages after checking on device.
+   ===================================================================== */
+
+.dialogue-zone {
+    position: absolute;
+    display: none;            /* hidden by default; JS adds .bubble-active */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* Padding keeps text in the wide middle section of the oval */
+    padding: 9% 18%;
+    box-sizing: border-box;
+    pointer-events: none;
+
+    /* Oval bubble */
+    background: #fef9e4;
+    border: 3px solid #1a1a1a;
+    border-radius: 50%;
+    /* overflow: visible so tail pseudo-elements extend outside the oval */
+    overflow: visible;
+}
+
+.dialogue-zone.bubble-active {
+    display: flex;
+}
+
+/* ── Shared tail skeleton ────────────────────────────────────────────
+   ::before  = dark border triangle (larger, rendered underneath)
+   ::after   = cream fill triangle  (smaller, rendered on top)
+   The 2–3 px difference in size creates the bordered-tail effect.
+   ─────────────────────────────────────────────────────────────────── */
+.dialogue-zone::before,
+.dialogue-zone::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    display: block;
+}
+
+/* ── Owner bubble ────────────────────────────────────────────────────
+   Sits near top of image. Tail angled down-right toward owner group.
+   Adjust top/left/width/height to taste after swapping images.
+   ─────────────────────────────────────────────────────────────────── */
+.bubble-owner {
+    top:    8.0%;
+    left:   4.0%;
+    width:  84.0%;
+    height: 16.0%;
+}
+
+/* Asymmetric downward triangle — wide left edge → tip leans RIGHT
+   top is set to ~90% (not 100%) to meet the ellipse edge at right:24%
+   (border-radius:50% means the visible oval bottom at x=76% is ~93%
+   of the bounding box height — we overlap ~3% to appear attached). */
+.bubble-owner::before {
+    top: 90%;
+    right: 24%;
+    border-left:  16px solid transparent;
+    border-right:  7px solid transparent;
+    border-top:   23px solid #1a1a1a;
+}
+.bubble-owner::after {
+    top: 90%;
+    right: calc(24% + 2px);
+    border-left:  13px solid transparent;
+    border-right:  5px solid transparent;
+    border-top:   20px solid #fef9e4;
+}
+
+/* ── Sachi bubble ─────────────────────────────────────────────────────
+   Moved up to top: 55% (was 70%) so the bubble sits above Sachi's
+   face rather than overlapping it. Tail still points down-left to her.
+   ─────────────────────────────────────────────────────────────────── */
+.bubble-sachi {
+    top:    55.0%;
+    left:   17.0%;
+    width:  64.0%;
+    height: 15.0%;
+}
+
+/* Asymmetric downward triangle — wide right edge → tip leans LEFT
+   top: 88% (not 100%) — at left:20% the ellipse edge is at ~90% of
+   the bounding box height; slight overlap ensures visual attachment. */
+.bubble-sachi::before {
+    top: 88%;
+    left: 20%;
+    border-left:   7px solid transparent;
+    border-right: 16px solid transparent;
+    border-top:   23px solid #1a1a1a;
+}
+.bubble-sachi::after {
+    top: 88%;
+    left: calc(20% + 2px);
+    border-left:   5px solid transparent;
+    border-right: 13px solid transparent;
+    border-top:   20px solid #fef9e4;
+}
+
+/* ── Player bubble ────────────────────────────────────────────────────
+   Centred at the top of the image (same row as the owner bubble).
+   Light-blue background, no caret — player thoughts float neutrally.
+   ─────────────────────────────────────────────────────────────────── */
+.bubble-player {
+    top:    40.0%;
+    left:   21.0%;    /* (100% - 58%) / 2 = 21% → centred */
+    width:  58.0%;
+    height: 15.0%;
+    background: #cce8ff;   /* light blue — player dialogue */
+}
+
+/* No caret for the player bubble */
+.bubble-player::before,
+.bubble-player::after {
+    display: none;
+}
+
+/* ── Dialogue Text ────────────────────────────────────────────────── */
+.dialogue-text {
+    display: block;
+    width: 100%;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.3;
+    text-align: center;
+    font-size: 1rem;   /* overwritten by JS fitText() */
+    overflow: hidden;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+/* =====================================================================
+   Bottom Navigation Bar
+   Layout: [←]  [↺]  [→]
+   ===================================================================== */
+#nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 64px;
+    background: #111;
+    border-top: 3px solid #f5c518;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    padding: 0 14px;
+    gap: 8px;
+}
+
+.nav-button {
+    background: #f5c518;
+    color: #111;
+    border: 3px solid #111;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    width: 48px;
+    height: 42px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 #111;
+    transition: transform 0.08s, box-shadow 0.08s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    text-decoration: none;  /* for <a> home button */
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+}
+
+.nav-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #111;
+}
+
+/* Hide prev button on first image (set via JS inline style) */
+.nav-button[style*="visibility: hidden"] {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ── Nav centre: restart button ── */
+#nav-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex: 1;  /* fills space between prev/next buttons */
+}
+
+#page-indicator {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #555;
+    border: 2px solid #888;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.dot.active {
+    background: #f5c518;
+    border-color: #f5c518;
+    transform: scale(1.3);
+}
+
+/* Restart button icon sizing */
+#restart-button svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* =====================================================================
+   YouTube Video Popup
+   Sits inside #image-container so the comic art shows behind the dim.
+   Uses a plain <iframe> whose src is set on user tap (works in Safari,
+   Firefox, and Chrome — no YouTube IFrame API required).
+   ===================================================================== */
+.youtube-popup {
+    display: none;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.78);
+    z-index: 50;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 16px;
+}
+
+.youtube-popup.active {
+    display: flex;
+}
+
+/* 16:9 responsive wrapper */
+.youtube-popup .video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    /* padding-bottom trick gives intrinsic 16:9 height */
+    padding-bottom: min(56.25%, 56.25vw);
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 3px solid #f5c518;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+    background: #000;
+}
+
+/* The iframe fills the padding-box of video-wrapper */
+.youtube-popup .video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+}
+
+/* Play button displayed over black placeholder before user taps */
+.youtube-play-btn {
+    display: none;     /* shown by JS when popup opens */
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px; height: 80px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.youtube-play-btn svg {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+}
+
+.youtube-popup .close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 60;
+}
+
+/* =====================================================================
+   Final Message Popup
+   ===================================================================== */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.88);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.popup-content {
+    position: relative;
+}
+
+.final-text-box {
+    width: 85vw;
+    max-width: 500px;
+    background-color: #fff;
+    color: #111;
+    text-align: center;
+    padding: 30px;
+    position: relative;
+    border-radius: 8px;
+    box-sizing: border-box;
+    border: 2px solid #f5c518;
+    box-shadow: none;
+}
+
+.final-text-box p {
+    font-size: 1.2em;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.token-image {
+    display: block;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+    object-fit: contain;
+}
+
+/* Using a:link and a:visited selectors with element+class specificity (0,2,1)
+   to beat browser UA stylesheet pseudo-class rules (e.g. a:-webkit-any-link)
+   that would otherwise override color and text-decoration on <a> elements. */
+.token-button,
+a.token-button:link,
+a.token-button:visited {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 14px 28px;
+    background-color: #f5c518;
+    color: #111;
+    font-size: 1.2em;
+    font-weight: 700;
+    text-decoration: none;
+    border: 3px solid #111;
+    border-radius: 6px;
+    box-shadow: 4px 4px 0 #111;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.token-button:hover,
+.token-button:focus {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #111;
+}
+
+/* ── Shared close button (used in both popups) ── */
+.close-button {
+    position: absolute;
+    top: 5px; right: 5px;
+    background-color: #cc0000;
+    color: white;
+    border: 2px solid #111;
+    border-radius: 50%;
+    width: 36px; height: 36px;
+    font-size: 1.4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 110;
+    box-shadow: 2px 2px 0 #111;
+    line-height: 1;
+    -webkit-tap-highlight-color: transparent;
+}
+.close-button:hover { background-color: #ff0000; }
+
+/* ── Accessibility helper ── */
+.visually-hidden {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

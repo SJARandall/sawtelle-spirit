@@ -1,0 +1,90 @@
+{
+  "endButton": "Give KANSHA Power Token to Sawtelle Spirit",
+  "dialogues": [
+		{
+		"image": "screens/ketchies-outdoor-mouth-closed.webp",
+		"speaker": "player",
+		"text": "YOU: Hey, Sachi look! There's another token here."
+		},
+		{
+		"image": "screens/ketchies-outdoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "SACHI: Yes there is, let's investigate!"
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "TED TANAKA: Hi Sachi! I thought I heard your voice."
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Hi Ted, can you tell my friend about this place?"
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "This is Ketchie's Stand. A hamburger-taco stand owned by Lonnie Ketchie. "
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-closed.webp",
+		"speaker": "player",
+		"text": "Oooo yum, what else do they sell? "
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "They sell all kinds of food like tamales, tacos, hot dogs, and hamburgers, each for only around 25 cents!"
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Yes, it's so good and so cheap!"
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "It is! My friends and I bike here all the time, and it's our little hangout spot."
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "So Ted, what is that glowing token doing here?"
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "That token right there? It stands for KANSHA."
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-closed.webp",
+		"speaker": "player",
+		"text": "What is KANSHA?"
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "KANSHA means gratitude. See, without Ketchie's, my friends and I wouldn't have a spot to hang out at."
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-closed.webp",
+		"speaker": "owner",
+		"text": "So my friends and I are all grateful that Ketchie's is here in our neighborhood."
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Yes, I'm so glad we have a Ketchie's in our neighborhood! "
+		},
+		{
+		"image": "screens/ketchies-indoor-mouth-open.webp",
+		"speaker": "sachi",
+		"text": "Thank you so much for teaching us about KANSHA."
+		},
+		{
+		"image": "screens/ketchies-indoor-token.webp",
+		"speaker": "owner",
+		"text": "Please take this KANSHA (Gratitude) token."
+		}
+	]
+}
