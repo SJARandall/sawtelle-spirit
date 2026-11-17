@@ -78,7 +78,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 16px;
-    padding: 36px 28px 64px;
+    padding: 36px 28px 130px;
     box-sizing: border-box;
     background: #1a1a1a;
     text-align: center;
@@ -121,16 +121,23 @@ body {
     position: absolute;
     left: 20px;
     right: 20px;
-    bottom: 16px;
+    bottom: 20px;
     margin: 0;
-    color: #999;
+    color: #ddd;
     font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 0.7rem;
-    line-height: 1.5;
+    font-size: clamp(1rem, 4.5vw, 1.2rem);
+    line-height: 1.4;
+    text-align: center;
+    white-space: pre-line; /* lets \n in the JSON text become a line break */
 }
 
 .chapter-footer a {
+    display: block;
+    width: fit-content;
+    margin: 4px auto 0;
+    padding: 10px 14px;   /* bigger tap target for fingers */
     color: #f5c518;
+    font-weight: 700;
 }
 
 /* =====================================================================

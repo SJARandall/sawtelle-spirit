@@ -214,12 +214,18 @@
         },
 
         firefox: {
-            rx:  -35,     // X: tilt forward (+) / backward (-)
-            ry: -90,    // Y: turn left (-) / right (+)
-            rz:  85,     // Z: tilt sideways
-            px:  -0.6,   // X: shift left (-) / right (+)
-            py: -1.5,    // Y: lift up (+) from marker surface
-            pz:  0       // Z: move toward camera (-) / away (+)
+            // Cat turned 45 degrees toward the player (it was facing the player's
+            // right) and shifted 0.3 to the left.  The rotation values below are NOT
+            // independent knobs: the model's pivot is far from the cat's body, so
+            // rotation and position were solved together to keep the cat in place.
+            // Original values: rx -35, ry -90, rz 85, px -0.6, py -1.5, pz 0.
+            // To nudge sideways just change px; to re-aim, ask for a recalculation.
+            rx:  9.9,    // X: tilt forward (+) / backward (-)
+            ry: -93.6,   // Y: (see note above)
+            rz:  85.8,   // Z: tilt sideways
+            px:  1.12,   // X: shift left (-) / right (+)
+            py: -1.97,   // Y: lift up (+) from marker surface
+            pz:  0.07    // Z: move toward camera (-) / away (+)
         },
 
         // Auto-scale: resize the model so its tallest dimension equals

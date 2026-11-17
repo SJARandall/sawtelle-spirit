@@ -147,6 +147,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideChapterScreen();
     }
 
+    // Chapter footer — text and link live in ss-chapter-footer.json so they
+    // can be edited in one place for every chapter page.
+    const chapterFooterEl = document.getElementById('chapter-footer');
+    if (chapterFooterEl) {
+        try {
+            const res = await fetch('ss-chapter-footer.json');
+            const f   = await res.json();
+            chapterFooterEl.textContent = f.text || '';
+            if (f.linkUrl) {
+                const a = document.createElement('a');
+                a.href        = f.linkUrl;
+                a.target      = '_blank';
+                a.rel         = 'noopener';
+                a.textContent = f.linkText || f.linkUrl;
+                chapterFooterEl.appendChild(a);
+            }
+        } catch (e) {
+            console.warn('[SSI] Could not load chapter footer:', e);
+        }
+    }
+
     // ── State ────────────────────────────────────────────────────────────
     let currentIndex   = 0;
     let touchStartX    = null;
@@ -367,6 +388,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     imageContainer.addEventListener('touchend', e => {
         if (touchStartX === null) return;
+        // Tapping the footer link on the chapter screen must NOT dismiss the
+        // screen — otherwise the screen is hidden before the browser can turn
+        // the tap into a click on the link.
+        if (e.target.closest('.chapter-footer a')) {
+            touchStartX = null;
+            return;
+        }
         if (chapterScreenVisible()) {
             touchStartX = null;
             hideChapterScreen();
